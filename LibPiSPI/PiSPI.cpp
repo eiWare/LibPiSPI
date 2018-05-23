@@ -8,8 +8,6 @@
 #include <linux/spi/spidev.h>
 #include <unistd.h>
 
-PiSPI* PiSPI::_pInstance[2] = { NULL };
-uint32_t PiSPI::_u32InstanceCounter[2] = { 0 };
 mutex PiSPI::mutexSPI[2];
 
 PiSPI::PiSPI(uint8_t channel, int speed, int mode, uint8_t bitsperword)
@@ -32,30 +30,6 @@ PiSPI::PiSPI(uint8_t channel, int speed, int mode, uint8_t bitsperword)
 
 	if (!this->SetSpeed(speed))
 		throw ios_base::failure(string("Could set SPI speed!"));
-}
-
-//Singleton Constructor
-PiSPI * PiSPI::GetInstance(uint8_t channel, int speed, int mode, uint8_t bitsperword)
-{
-	if (channel > 1)
-		return NULL;
-
-	if (PiSPI::_pInstance[channel] == NULL)
-		PiSPI::_pInstance[channel] = new PiSPI(channel, speed, mode, bitsperword);
-
-	if(PiSPI::_pInstance[channel] != NULL)
-		PiSPI::_u32InstanceCounter[channel]++;
-	return PiSPI::_pInstance[channel];
-}
-
-//Releases one instance from the singleton class and deconstructs the class once it reaches zero instances
-void PiSPI::ReleaseInstance()
-{
-	PiSPI::_pInstance[this->_u8Channel] = NULL;
-	if (PiSPI::_u32InstanceCounter > 0)
-		PiSPI::_u32InstanceCounter[this->_u8Channel]--;
-	if(PiSPI::_u32InstanceCounter[this->_u8Channel])
-		delete this;
 }
 
 PiSPI::~PiSPI()

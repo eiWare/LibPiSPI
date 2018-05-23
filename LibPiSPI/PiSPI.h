@@ -18,13 +18,8 @@ class PiSPI
 {
 	//Constructor / Destructor
 	//Constructor - Sets up the SPI Port and opens it. Singleton due to HW.
-private:
-	PiSPI(uint8_t channel, int speed, int mode, uint8_t bitsperword = 8);
-	static PiSPI* _pInstance[2];
-	static uint32_t _u32InstanceCounter[2];
 public:
-	static PiSPI* GetInstance(uint8_t channel, int speed, int mode, uint8_t bitsperword = 8);
-	void ReleaseInstance();
+	PiSPI(uint8_t channel, int speed, int mode, uint8_t bitsperword = 8);
 	~PiSPI();
 
 	//Methods
