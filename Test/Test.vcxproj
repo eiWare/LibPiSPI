@@ -43,7 +43,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <Link>
-      <LibraryDependencies>wiringPi</LibraryDependencies>
+      <LibraryDependencies>PiSPI</LibraryDependencies>
+      <AdditionalOptions>-pthread %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <RemotePostBuildEvent>
       <Command>gpio export 17 out</Command>
