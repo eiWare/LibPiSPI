@@ -34,7 +34,9 @@ public:
 	int GetSpeed();
 
 	bool Write(uint8_t reg, uint8_t* pData, size_t length);
+	bool Write(uint8_t* pData, size_t length);
 	bool Read(uint8_t reg, uint8_t* pData, size_t length);
+	bool Read(uint8_t* pData, size_t length);
 	bool SyncReadWrite(uint8_t* pData, size_t length);
 
 	//Fields
